@@ -1,4 +1,3 @@
-import React from "react";
 import Limk from "next/link";
 
 const Register = () => {
