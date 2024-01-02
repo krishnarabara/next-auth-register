@@ -22,9 +22,8 @@ const Register = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const email = e.target[0].value;
-    console.log("🚀 ~ file: page.tsx:26 ~ handleSubmit ~ email:", email)
     const password = e.target[1].value;
-    console.log("🚀 ~ file: page.tsx:27 ~ handleSubmit ~ password:", password)
+  
 
     if (!isValidEmail(email)) {
       setError("Email is invalid");
