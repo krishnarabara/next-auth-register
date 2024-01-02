@@ -1,8 +1,8 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useEffect, useState } from "react";
 
 const Register = () => {
   const [error, setError] = useState("");
@@ -22,7 +22,9 @@ const Register = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     const email = e.target[0].value;
+    console.log("🚀 ~ file: page.tsx:26 ~ handleSubmit ~ email:", email)
     const password = e.target[1].value;
+    console.log("🚀 ~ file: page.tsx:27 ~ handleSubmit ~ password:", password)
 
     if (!isValidEmail(email)) {
       setError("Email is invalid");

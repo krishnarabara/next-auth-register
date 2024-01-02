@@ -1,10 +1,13 @@
-import User from "@/models/Users";
-import connect from "@/utils/db";
-import bcrypt from "bcryptjs";
+import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
+import User from "../../models/user";
+import connect from "../../utils/db";
 
 export const POST = async (request: any) => {
+console.log("🚀 ~ file: route.ts:7 ~ POST ~ request:", request)
 const { email,password } = await request.json();
+console.log("🚀 ~ file: route.ts:8 ~ POST ~ password:", password)
+console.log("🚀 ~ file: route.ts:8 ~ POST ~ email:", email)
 
 await connect();
 

@@ -1,10 +1,12 @@
-import NextAuth from "next-auth";
-import { Account, User as AuthUser } from "next-auth";
-import GithubProvider from "next-auth/providers/github";
-import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
-import User from "@/models/User";
-import connect from "@/utils/db";
+import NextAuth, { Account, User as AuthUser } from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import GithubProvider from "next-auth/providers/github";
+import user from "../../../../models/user";
+import connect from "../../../../utils/db";
+
+
+
 
 export const authOptions: any = {
   // Configure one or more authentication providers
@@ -18,8 +20,10 @@ export const authOptions: any = {
       },
       async authorize(credentials: any) {
         await connect();
+
+        let userData=user
         try {
-          const user = await User.findOne({ email: credentials.email });
+          const user = await userData.findOne({ email: credentials.email });
           if (user) {
             const isPasswordCorrect = await bcrypt.compare(
               credentials.password,
@@ -41,16 +45,16 @@ export const authOptions: any = {
     // ...add more providers here
   ],
   callbacks: {
-    async signIn({ user, account }: { user: AuthUser; account: Account }) {
+    async signIn({ user:any, account }: { user: AuthUser; account: Account }) {
       if (account?.provider == "credentials") {
         return true;
       }
       if (account?.provider == "github") {
         await connect();
         try {
-          const existingUser = await User.findOne({ email: user.email });
+          const existingUser = await user.findOne({ email: user.email });
           if (!existingUser) {
-            const newUser = new User({
+            const newUser = new user({
               email: user.email,
             });
 
